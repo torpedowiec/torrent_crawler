@@ -14,7 +14,7 @@ from json import load, dump
 config = configparser.ConfigParser()
 config.read('config.ini')
 sections = config.sections()
-print("Sections:", sections)
+print("Credentials in config file:", sections)
 
 
 def init_variables():
@@ -30,33 +30,6 @@ def init_variables():
     warszawiankobot_chatID = config['WARSZAWIANKOBOT_CRED']['bot_chatID']
 
 init_variables()
-
-def test_config(bot_message): 
-    def get_chat_ids():   
-        get_updates = f"{tg_api_baseurl}{hungrytesterobot_token}/getUpdates"
-        try:
-            response = requests.get(get_updates)
-            response_data = response.json()
-            chat_ids = []
-            for update in response_data.get('result',[]):
-                chat_id = update.get('message', {}).get('chat', {}).get('id')
-                if chat_id is not None:
-                    chat_ids.append(chat_id)
-            return(chat_ids)
-        except requests.exceptions.RequestException as e:
-            print("Error making the API request:", e)
-            return []
-    chat_id_list = get_chat_ids()
-    print(f"chat IDs: {chat_id_list}")
-    if len(chat_id_list) == 1:
-        bot_chat_id = chat_id_list[0]
-    welcomeMessage = f"{tg_api_baseurl}{hungrytesterobot_token}/sendMessage?chat_id={bot_chat_id}&parse_mode=Markdown&text={quote(bot_message)}"
-    response = requests.get(welcomeMessage)
-    print(welcomeMessage)
-
-test_config("BOT HAS STARTED! Type any message to start.")
-
-
 
 def telegram_bot_sendtext(bot_message, only_to_admin=True):
     config = configparser.ConfigParser()
