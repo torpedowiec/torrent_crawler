@@ -8,10 +8,7 @@ from email.message import EmailMessage
 from bs4 import BeautifulSoup
 from urllib import request
 from urllib.request import Request, urlopen
-from tgtg import TgtgClient
 from json import load, dump
-from tpb import TPB
-from tpb import CATEGORIES, ORDERS
 
 isAvailable = False
 
